@@ -14,12 +14,15 @@
 
 1. Linux
 
-    make -f Makefile.gcc
-    ./main
-  
+```
+make -f Makefile.gcc
+./main
+```
+
 2. Windows（可能不太好用，默认不维护）
 首先启动Visual Studio的命令行编译，然后
 
-    nmake -f Makefile.msvc main.exe
-    ./main.exe
-
+```
+nmake -f Makefile.msvc main.exe
+./main.exe
+```
