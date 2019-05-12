@@ -1,0 +1,21 @@
+PYTHONPATH=C:\Python35
+CFLAGS=/I $(PYTHONPATH)/include
+CPPFLAGS=$(CFLAGS)
+LDFLAGS=$(PYTHONPATH)/libs/python35.lib /SUBSYSTEM:CONSOLE
+TARGET=main.exe
+CC=cl
+LINK=link
+
+npbridge.py.c : npbridge.py.pyx
+	$(PYTHONPATH)\Scripts\cython -3 $?
+
+.PHONY: $(TARGET)
+
+$(TARGET) : npbridge.py.obj py.obj main.obj
+	$(LINK) /OUT:$(TARGET) $** $(LDFLAGS)
+
+
+clean:
+	del *.exe *.obj *.py.c *.py.h
+
+

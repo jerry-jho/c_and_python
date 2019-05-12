@@ -1,0 +1,25 @@
+CFLAGS=$(shell python3.6-config --includes)
+CPPFLAGS=$(CFLAGS)
+LDFLAGS=$(shell python3.6-config --ldflags)
+CC=g++
+TARGET=main
+
+#let makefile keep intermediate files
+.PRECIOUS: %.py.c
+
+%.py.c %.py.h : %.py.pyx
+	cython3 $^
+
+%.py.o : %.py.c
+
+%.c : %.h
+
+%.cpp : %.h
+
+.PHONY: $(TARGET)
+
+$(TARGET) : py_va_args.o npbridge.py.o py.o main.o
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+clean:
+	rm -rf *.exe *.o *.py.c *.py.h
